@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="ipt1" type="text" placeholder="修改name的值">
+<br>
+<h2>当前值是： <span></span></h2>
+<script>
+    let data = {
+        name: ''
+    }
+    //创建一个监测的实例对象，用于监测 data 的数据变化
+    data = new Observer(data)
+
+    function Observer(obj) {
+        //汇总对象中所有属性形成一个数组
+        const keys = Object.keys(obj)
+        //遍历新生成的数组
+        keys.forEach((k) => {
+            Object.defineProperty(this, k, {
+                get() {
+                    return obj[keys]
+                },
+                set(val) {
+                    obj[k] = val
+                    document.querySelector('span').innerHTML = obj[k]
+                }
+            })
+        })
+    }
+
+    // 修改 name 的值
+    document.querySelector('#ipt1').addEventListener('input', e => {
+        data.name = e.target.value
+    })
+</script>
+</body>
+</html>
