@@ -11,27 +11,33 @@
         age: 18
     }
     // Vue3 通过 Proxy 监视数据变化
+    // 配合了 ES6 新增的 Reflect 内置对象对数据进行读取和修改
     const p = new Proxy(data, {
         // 读取 data 中数据时调用
         // 第一个参数 : 原数据(传过来的data) , 第二个参数 : 属性名
         get(target, p) {
             console.log('读取了data中的' + p)
-            return target[p]
+            // return target[p]
+            return Reflect.get(target, p)
         },
         // 修改、追加 data 中的 值时调用
         // 第一个参数 : 原数据(传过来的data) , 第二个参数 : 属性名 , 第三个参数 : 修改的值
         set(target, p, value) {
             console.log('修改了data中的' + p)
-            target[p] = value
+            // target[p] = value
+            Reflect.set(target, p, value)
             console.log('更新后的是' + target[p])
         },
         // 删除 data 中的值时调用
         // 第一个参数 : 原数据(传过来的data) , 第二个参数 : 属性名
         deleteProperty(target, p) {
             console.log('删除了data中的' + p)
-            return delete target[p]
+            // return delete target[p]
+            return Reflect.deleteProperty(target, p)
         }
     })
+
+    console.log(p)
 </script>
 </body>
 </html>

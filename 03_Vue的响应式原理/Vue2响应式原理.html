@@ -20,6 +20,7 @@
         const keys = Object.keys(obj)
         //遍历新生成的数组
         keys.forEach((k) => {
+            // 使用 Object.defineProperty 进行数据劫持，实时监控
             Object.defineProperty(this, k, {
                 get() {
                     return obj[keys]
