@@ -1,4 +1,4 @@
-import {reactive, onMounted, onBeforeUnmount} from "vue";
+import {reactive, onMounted, onBeforeUnmount} from "vue"
 // 自定义 hook ，类似于 mixin混入
 export default () => {
     // 页面打点相关的数据
