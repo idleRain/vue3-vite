@@ -11,27 +11,30 @@
     </thead>
     <tbody>
     <tr v-for="(item,index) in data" :key="index">
-      <td>{{item.name}}</td>
+      <td>{{ item.name }}</td>
       <td style="display: flex;justify-content: space-between;">
         <button @click="addAndSub(item, false)">-</button>
-        {{item.quantity}}
+        {{ item.quantity }}
         <button @click="addAndSub(item, true)">+</button>
       </td>
-      <td>{{item.price}}</td>
-      <td>{{cumulative(index)}}</td>
-      <td><button @click="del(index)">删除</button></td>
+      <td>{{ item.price }}</td>
+      <td>{{ cumulative(index) }}</td>
+      <td>
+        <button @click="del(index)">删除</button>
+      </td>
     </tr>
     </tbody>
-  <tfoot>
-  <tr>
-    <td colspan="5" style="text-align: end">总价：{{total}}</td>
-  </tr>
-  </tfoot>
+    <tfoot>
+    <tr>
+      <td colspan="5" style="text-align: end">总价：{{ total }}</td>
+    </tr>
+    </tfoot>
   </table>
 </template>
 
 <script lang="ts" setup>
 import {reactive, computed} from "vue"
+
 type Shop = {
   name: string
   quantity: number
@@ -50,7 +53,7 @@ const cumulative = (index): number => {
 }
 // 删除
 const del = (index): void => {
-  data.splice(index,1)
+  data.splice(index, 1)
 }
 // 数量加减
 const addAndSub = (item: Shop, type: boolean): void => {
@@ -59,9 +62,9 @@ const addAndSub = (item: Shop, type: boolean): void => {
 }
 // 总价
 const total = computed<number>(() => {
-  return data.reduce((prev,item) => {
+  return data.reduce((prev, item) => {
     return prev + item.quantity * item.price
-  },0)
+  }, 0)
 })
 </script>
 
