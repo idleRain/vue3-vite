@@ -1,73 +1,35 @@
 <template>
-  <table border width="600">
-    <thead>
-    <tr>
-      <th>商品名称</th>
-      <th>数量</th>
-      <th>单价</th>
-      <th>单品总价</th>
-      <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="(item,index) in data" :key="index">
-      <td>{{ item.name }}</td>
-      <td style="display: flex;justify-content: space-between;">
-        <button @click="addAndSub(item, false)">-</button>
-        {{ item.quantity }}
-        <button @click="addAndSub(item, true)">+</button>
-      </td>
-      <td>{{ item.price }}</td>
-      <td>{{ cumulative(index) }}</td>
-      <td>
-        <button @click="del(index)">删除</button>
-      </td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-      <td colspan="5" style="text-align: end">总价：{{ total }}</td>
-    </tr>
-    </tfoot>
-  </table>
+  <h1>当前数值： {{ num }}</h1>
+  <button @click="add">点我点我</button>
+  <hr>
+  <button @click="sayHello">sayHello</button>
+  <br>
+  <button @click="name='小何';age++">点我改个名: {{name}}{{age}}</button>
 </template>
 
 <script lang="ts" setup>
-import {reactive, computed} from "vue"
+import {reactive, ref, toRefs} from "vue"
 
-type Shop = {
+type data = {
   name: string
-  quantity: number
-  price: number
+  age: number
+  hobby: string[]
 }
-const data = reactive<Shop[]>([
-  {name: '黑米', quantity: 1, price: 100},
-  {name: '黄豆', quantity: 1, price: 200},
-  {name: '紫薯', quantity: 1, price: 300},
-  {name: '布加迪威龙', quantity: 1, price: 400}
-])
+const num = ref<number>(0)
 
-// 单品总价
-const cumulative = (index): number => {
-  return data[index].price * data[index].quantity
-}
-// 删除
-const del = (index): void => {
-  data.splice(index, 1)
-}
-// 数量加减
-const addAndSub = (item: Shop, type: boolean): void => {
-  if (item.quantity > 1 && !type) item.quantity--
-  if (item.quantity < 99 && type) item.quantity++
-}
-// 总价
-const total = computed<number>(() => {
-  return data.reduce((prev, item) => {
-    return prev + item.quantity * item.price
-  }, 0)
+const data = reactive<data>({
+  name: '小丁',
+  age: 18,
+  hobby: ['学习', '运动', '开车']
 })
+
+const {name, age} = toRefs<data>(data)
+
+const add = (): void => {
+  num.value++
+}
+const sayHello = (): void => {
+  console.log(data)
+  console.log('Hello, React!')
+}
 </script>
-
-<style scoped>
-
-</style>
