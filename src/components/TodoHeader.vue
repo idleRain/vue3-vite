@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {defineEmits, ref} from "vue";
-
-const emit = defineEmits(['handleAddTodo'])
+import {ref} from "vue"
+import {useTodosStore} from "../stores/todos";
+const todos = useTodosStore()
 
 const taskName = ref<string>('')
-const add = () => {
-  emit('handleAddTodo', taskName.value)
+const addTodo = () => {
+  if (!taskName.value.length) return
+  todos.handleAddTodo(taskName.value)
   taskName.value = ''
 }
 </script>
@@ -13,13 +14,7 @@ const add = () => {
 <template>
   <header class="header">
     <h1>todos</h1>
-    <input
-        class="new-todo"
-        placeholder="What needs to be done?"
-        autofocus
-        v-model.trim="taskName"
-        @keydown.enter="add"
-    />
+    <input class="new-todo" placeholder="What needs to be done?" autofocus v-model.trim="taskName" @keydown.enter="addTodo" />
   </header>
 </template>
 
