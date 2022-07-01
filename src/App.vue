@@ -1,35 +1,15 @@
+<script setup lang="ts">
+import TodoHeader from './components/TodoHeader.vue'
+import TodoMain from './components/TodoMain.vue'
+import TodoFooter from './components/TodoFooter.vue'
+</script>
+
 <template>
-  <h1>当前数值： {{ num }}</h1>
-  <button @click="add">点我点我</button>
-  <hr>
-  <button @click="sayHello">sayHello</button>
-  <br>
-  <button @click="name='小何';age++">点我改个名: {{name}}{{age}}</button>
+  <section class="todoapp">
+    <TodoHeader></TodoHeader>
+    <TodoMain></TodoMain>
+    <TodoFooter></TodoFooter>
+  </section>
 </template>
 
-<script lang="ts" setup>
-import {reactive, ref, toRefs} from "vue"
-
-type data = {
-  name: string
-  age: number
-  hobby: string[]
-}
-const num = ref<number>(0)
-
-const data = reactive<data>({
-  name: '小丁',
-  age: 18,
-  hobby: ['学习', '运动', '开车']
-})
-
-const {name, age} = toRefs<data>(data)
-
-const add = (): void => {
-  num.value++
-}
-const sayHello = (): void => {
-  console.log(data)
-  console.log('Hello, React!')
-}
-</script>
+<style></style>
